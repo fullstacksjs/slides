@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+FILE=$1
+
+[[ -z $FILE ]] && exit 1
+
+NAME="${FILE%.*}"
+DIR=$(dirname "$FILE")
+
+npx @marp-team/marp-cli@latest "${NAME}.md" -o "./output/${NAME}.html" --theme "${DIR}/theme.css" -w &
+sleep 1
+npx live-server . --watch --open="/output/${NAME}.html"
+
+echo -e "\nGood bye"
+pkill -P $$
